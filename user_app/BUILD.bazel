@@ -26,6 +26,7 @@ py_test(
         ":run",
         requirement("fastapi"),
         requirement("httpx"),
+        requirement("pytest"),
     ],
 )
 
