@@ -1,2 +1,2 @@
-Run the test : bazelisk test user_app:test
-Run the app : bazelish run user_app:run
+Run the test : bazel test user_app:test
+Run the app : bazel run user_app:run

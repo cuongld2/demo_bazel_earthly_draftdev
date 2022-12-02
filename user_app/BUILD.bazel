@@ -18,11 +18,12 @@ py_library(
 
 py_test(
     name = "test",
-    srcs = [
-        "test.py",
-    ],
+    srcs = glob([
+        "tests/**/*.py",
+    ]),
+    main = "tests/test_main.py",
     deps = [
-        ":user_app",
+        ":run",
         requirement("fastapi"),
         requirement("httpx"),
     ],
