@@ -1,0 +1,43 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+load("@python_external_deps//:requirements.bzl", "requirement")
+
+py_library(
+    name = "user_app",
+    srcs = glob(["*.py"]),
+    srcs_version = "PY3",
+    deps = [
+        requirement("fastapi"),
+        requirement("sqlalchemy"),
+        requirement("mysql-connector-python"),
+        requirement("bcrypt"),
+        requirement("pydantic"),
+        requirement("uvicorn"),
+        requirement("PyJWT"),
+    ],
+)
+
+py_test(
+    name = "test",
+    srcs = [
+        "test.py",
+    ],
+    deps = [
+        ":user_app",
+        requirement("fastapi"),
+        requirement("httpx"),
+    ],
+)
+
+# to add additionals parameters place them after "--" in bazel call, like:
+# `bazel run //webapp:run -- --reload`
+py_binary(
+    name = "run",
+    srcs = ["run.py"],
+    python_version = "PY3",
+    srcs_version = "PY3",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":user_app",
+        requirement("uvicorn"),
+    ],
+)
