@@ -21,6 +21,11 @@ def test_create_user():
 
 
 def test_authenticate_user_success():
+    client.post("/user", json={
+        "username": "medium",
+        "password": "12345",
+        "fullname": "Medium aloha"
+    })
     response = client.post("/authenticate", json={
         "username": "medium",
         "password": "12345",
