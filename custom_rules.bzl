@@ -1,16 +1,16 @@
-def _build_with_custom_python_impl(ctx):
-    ctx.actions.run(
-        executable = ctx.executable.my_external_compiler,
-        arguments = [ctx.file.my_custom_build_script.path],
+def _clean_user_database_impl(ctx):
+    out_file = ctx.outputs.output
+    ctx.actions.run_shell(
+        outputs = [out_file],
+        arguments = [out_file.path],
+        command = "curl -I --request DELETE 'http://localhost:8081/all-users' -o \"$1\"",
     )
+    return [DefaultInfo(files = depset([out_file]))]
 
-build_with_my_custom_rule = rule(
-    implementation = _build_with_custom_python_impl,
+clean_user_database = rule(
+    implementation = _clean_user_database_impl,
     attrs = {
-        "my_custom_build_script": attr.label(allow_single_file = True),
-        "my_external_compiler": attr.label(
-            executable = True,
-            cfg = "exec",
-        ),
+        "output": attr.output(doc = "The generated file"),
     },
+    doc = "Transforms a text file by changing its characters to uppercase.",
 )

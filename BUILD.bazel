@@ -1,14 +1,6 @@
-#genrule(
-#    name = "version",
-#    outs = ["version.txt"],
-#    # alternative: "sed -n 's/STABLE_BUILD_GIT_DESCRIBE //p' bazel-out/stable-status.txt"
-#    cmd_bash = "grep -Po '^STABLE_BUILD_GIT_DESCRIBE\\s+\\K.*' bazel-out/stable-status.txt |tee $@",
-#    stamp = True,
-#)
 load("@rules_python//python:defs.bzl", "py_binary", "py_library")
-load("//:custom_rules.bzl", "build_with_my_custom_rule")
-
-build_with_my_custom_rule(
-    name = "build_me",
-    my_custom_build_script = "//:clean_user_database.py",
+load(":custom_rules.bzl", "clean_user_database")
+clean_user_database(
+    name = "clean_user_database",
+    output = "clean_user_log.txt",
 )
