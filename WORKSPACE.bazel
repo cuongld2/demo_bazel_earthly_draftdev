@@ -14,6 +14,12 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_python/archive/refs/tags/0.8.0.tar.gz",
 )
 
+http_archive(
+    name = "downloaded-python",
+    url = "https://www.python.org/ftp/python/3.10.0/python-3.10.0rc1-embed-arm64.zip",
+    build_file = "//:BUILD.my_downloaded_python"
+)
+
 load("@rules_python//python:pip.bzl", "pip_install")
 load("@rules_python//python:repositories.bzl", "python_register_toolchains")
 
