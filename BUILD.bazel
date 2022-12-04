@@ -1,6 +1,0 @@
-load("@rules_python//python:defs.bzl", "py_binary", "py_library")
-load(":custom_rules.bzl", "clean_user_database")
-clean_user_database(
-    name = "clean_user_database",
-    output = "clean_user_log.txt",
-)
