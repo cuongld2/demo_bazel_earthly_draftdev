@@ -47,3 +47,8 @@ def authenticate_user(user: schemas.UserAuthenticate, db: Session = Depends(get_
             access_token = create_access_token(
                 data={"sub": user.username}, expires_delta=access_token_expires)
             return {"access_token": access_token, "token_type": "Bearer"}
+
+
+@app.delete("/all-users")
+def delete_user(db: Session = Depends(get_db)):
+    return crud.remove_all_users(db)
